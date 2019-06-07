@@ -1,0 +1,18 @@
+1. Fix : Push issue
+Create two repositories, one is named remote and another named local,
+Clone remote in local and after adding few files in local, and trying to issue git push, at times it may encountered an error, 
+and to fix that issue, execute below command in my remote directory
+
+$ git config --local receive.denyCurrentBranch updateInstead
+
+2. Fix : Checkout(Ambiguity to switch or to reset file)
+Assuming we have two branches master and test
+And if we are in test branch, 
+Issue below command to switch to master
+
+$ git checkout master 
+
+If in my test branch there is file named master, also I’m in test branch then git checkout master will switch to master branch,
+whereas to get revert modifications done in master file we should enter 
+
+$ git checkout -- master 
