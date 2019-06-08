@@ -1,13 +1,13 @@
-1. Fix : Push issue
--------------------
+1. Push
+-------
 Create two repositories, one is named remote and another named local,
 Clone remote in local and after adding few files in local, and trying to issue git push, at times it may encountered an error, 
 and to fix that issue, execute below command in my remote directory
 
 $ git config --local receive.denyCurrentBranch updateInstead
 
-2. Fix : Checkout(Ambiguity to switch or to reset file)
--------------------------------------------------------
+2. Checkout(Ambiguity to switch or to reset file)
+-------------------------------------------------
 Assuming we have two branches master and feature
 And if we are in feature branch, to switch to master, we use below command
 
@@ -17,3 +17,24 @@ Again assume we are in master branch and there is file named feature inside it,t
 whereas to reset changes done in feature file we should enter
 
 $ git checkout -- feature 
+
+3. cherry-pick, reset, clean
+-----------------------------
+Assuming we are in master branch there are two files file1.txt, file2.txt and we made changes to file1.txt and commited, later 
+realised file1.txt changes should have been done under feature branch, to make this commit moved to feature branch, use below commands
+
+$ git log
+(This is list all commits made, so copy hash from latest commit we made, assume hash looks like 99ebc0659963ae3ac99072e8a67db744c679628a)
+
+$ git checkout feature
+
+$ git cherry-pick 99ebc0659963ae3ac99072e8a67db744c679628a
+(This will bring changes in feature branch)
+
+$ git checkout master
+
+$ git reset --hard 20cd46bae4dadd3091598d80a7aa022fc10a24d1 (Note:- Hash is previous commit hash here)
+
+At times, to remove untracked files which was created newly, even after git reset --hard wont suffice, so we can issue below command
+
+$ git clean -df
